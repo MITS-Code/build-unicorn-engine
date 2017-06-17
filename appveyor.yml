@@ -40,7 +40,7 @@ init:
     - git config --global core.autocrlf input
 install:
     - cmd: >-
-          git submodule update --init --recursive --remote
+          git submodule update --init --recursive
           
           cd unicorn     
     - ps: if (Test-Path Env:\CYG_ROOT) { Start-FileDownload "http://cygwin.com/$env:CYG_SETUP" -FileName "$env:CYG_SETUP" }
@@ -59,7 +59,7 @@ test_script:
     - if defined CYG_ROOT (%BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/unicorn && ./install-cmocka-linux.sh && export PATH=$PATH:$APPVEYOR_BUILD_FOLDER/unicorn:$APPVEYOR_BUILD_FOLDER/unicorn/cmocka/src && make test")
 artifacts:
 - path: unicorn/
-  name: Unicorn.v%APPVEYOR_BUILD_VERSION%.%PF%.b%TIMESTAMP%
+  name: Unicorn.v%APPVEYOR_BUILD_VERSION%.%PF%
 deploy:
 - provider: GitHub
   auth_token:
